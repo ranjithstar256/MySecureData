@@ -7,31 +7,64 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-         />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button2"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:onClick="encrypt"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Encrypt" />
+            android:layout_height="200dp"
+            android:src="@drawable/tom_cruise" />
 
-        <Button
-            android:onClick="decrypt"
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Decrypt" />
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="encrypt"
+                android:text="Encrypt" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="decrypt"
+                android:text="Decrypt" />
+        </LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <Button
+                android:id="@+id/button33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="encStr"
+                android:layout_weight="1"
+                android:text="enc str" />
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="decStr"
+                android:layout_weight="1"
+                android:text="dec str" />
+
+        </LinearLayout>
+
+
 </LinearLayout>

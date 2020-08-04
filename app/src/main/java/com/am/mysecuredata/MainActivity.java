@@ -1,10 +1,12 @@
 package com.am.mysecuredata;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,7 +14,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -28,7 +32,10 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;    File myDir;
@@ -38,15 +45,18 @@ public class MainActivity extends AppCompatActivity {
     private String my_key="fl3kxbhiikdyl6og";
     private String my_spec_key="anbdyhj35fj7s9db";
 
+    // example.txt
+
+    String encrypted;
+    String decrypted;
+    EditText editText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imageView=findViewById(R.id.imageView);
-
-        Intent  intent = new Intent(Intent.ACTION_PICK);
-        startActivity(intent);
-
+        editText=findViewById(R.id.editTextTextPersonName);
         myDir= new File(Environment.getExternalStorageDirectory().toString()+"/savehere");
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]
@@ -59,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
         BitmapDrawable bitmapDrawable= (BitmapDrawable) drawable;
         Bitmap bitmap = bitmapDrawable.getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
-
+        // example.txt
 
         InputStream  inputStream = new ByteArrayInputStream(stream.toByteArray());
         File outputFileEnc = new File(myDir,FILE_NAME_ENC);
@@ -103,4 +112,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    public void encStr(View view) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+        String d = editText.getText().toString();
+
+
+        encrypted = MyEncrypter.encrypt(d);
+        Toast.makeText(this, ""+encrypted, Toast.LENGTH_SHORT).show();
+
+    }
+    public void decStr(View view) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+        decrypted = MyEncrypter.decrypt(encrypted);
+        Toast.makeText(this, ""+decrypted, Toast.LENGTH_SHORT).show();
+    }
 }
+    //}
