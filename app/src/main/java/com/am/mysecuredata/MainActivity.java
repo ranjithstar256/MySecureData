@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String FILE_NAME_DEC = "tom_cruise";
 
     private String my_key = "fl3kxbhiikdyl6og";
+    //private String my_keyy = "fl3kxbhiikdyl6of";
     private String my_spec_key = "anbdyhj35fj7s9db";
 
     String encrypted;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     Drawable drawable;
     BitmapDrawable bitmapDrawable;
     Bitmap bitmap;
-    ByteArrayOutputStream stream;
     String s3,s4;
 
     @Override
@@ -69,18 +69,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void encrypt(View view) {
-        myDir = new File(Environment.getExternalStorageDirectory().toString() + "/savehere");
-
+        //myDir = new File(Environment.getExternalStorageDirectory().toString() + "/savehere");
         drawable = ContextCompat.getDrawable(MainActivity.this, R.drawable.tom_cruise);
         bitmapDrawable = (BitmapDrawable) drawable;
         bitmap = bitmapDrawable.getBitmap();
-        stream = new ByteArrayOutputStream();
-        // example.txt
 
-        InputStream inputStream = new ByteArrayInputStream(stream.toByteArray());
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
+
+        myDir = new File(Environment.getExternalStorageDirectory().toString() + "/savehere");
+
+
         File outputFileEnc = new File(myDir, FILE_NAME_ENC);
         try {
-            MyEncrypter.encrypToFile(my_key, my_spec_key, inputStream, new FileOutputStream(outputFileEnc));
+            MyEncrypter.encrypToFile(my_key, my_spec_key, bs, new FileOutputStream(outputFileEnc));
             Toast.makeText(this, "Encrypted!", Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void decrypt(View view) {
+
         myDir = new File(Environment.getExternalStorageDirectory().toString() + "/savehere");
 
         File outputFileDec = new File(myDir, FILE_NAME_DEC);
