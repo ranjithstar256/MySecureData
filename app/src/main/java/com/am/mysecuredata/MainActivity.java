@@ -50,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
     String encrypted;
     String decrypted;
     EditText editText;
-
+    Drawable drawable ;
+    BitmapDrawable bitmapDrawable;
+    Bitmap bitmap;
+    ByteArrayOutputStream stream;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
                 1);
     }
     public void encrypt(View view) {
-        Drawable drawable = ContextCompat.getDrawable(MainActivity.this,R.drawable.tom_cruise);
-        BitmapDrawable bitmapDrawable= (BitmapDrawable) drawable;
-        Bitmap bitmap = bitmapDrawable.getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+         drawable = ContextCompat.getDrawable(MainActivity.this,R.drawable.tom_cruise);
+         bitmapDrawable= (BitmapDrawable) drawable;
+         bitmap = bitmapDrawable.getBitmap();
+        stream = new ByteArrayOutputStream();
         // example.txt
 
         InputStream  inputStream = new ByteArrayInputStream(stream.toByteArray());
@@ -93,6 +96,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             MyEncrypter.decrypToFile(my_key,my_spec_key,
                     new FileInputStream(encFile),new FileOutputStream(outputFileDec));;
+            try (FileOutputStream out = new FileOutputStream(outputFileDec)) {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+                // PNG is a lossless format, the compression factor (100) is ignored
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
                     imageView.setImageURI(Uri.fromFile(outputFileDec));
 
             Toast.makeText(this, "Decrypted!", Toast.LENGTH_SHORT).show();

@@ -2,6 +2,7 @@ package com.am.mysecuredata;
 
 import android.content.Context;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class MyEncrypter {
     private static final String ALGO_IMAGE_ENCRYPTOR="AES/CBC/PKCS5Padding";
     private static final String ALGO_SECRET_KEY = "AES";
     private static final int READ_WRITE_HUFFER = 1024;
+    private static final String TAG ="234ERSJJ" ;
 
     public static void encrypToFile(String keyStr,String specStr,InputStream in , OutputStream out)
             throws IOException, NoSuchPaddingException,
@@ -48,7 +50,13 @@ public class MyEncrypter {
             while ((count=in.read(buffer))>0){
                 out.write(buffer,0,count);
             }
-        } finally {
+            Log.d(TAG, "encrypToFile: "+out);
+        }
+        catch (Exception e){
+            Log.e(TAG, "encrypToFile: "+e.getMessage().toString()+"" );
+        }
+
+        finally {
             out.close();
         }
     }
@@ -75,7 +83,11 @@ public class MyEncrypter {
             while ((count=in.read(buffer))>0){
                 out.write(buffer,0,count);
             }
-        } finally {
+            Log.d(TAG, "decrypToFile: "+out);
+
+        } catch (Exception e){
+            Log.e(TAG, "DEencrypToFile: "+e.getMessage().toString()+"" );
+        }finally {
             out.close();
         }
     }
