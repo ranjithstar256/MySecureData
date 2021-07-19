@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     BitmapDrawable bitmapDrawable;
     Bitmap bitmap;
     ByteArrayOutputStream stream;
+    String s3,s4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         File sourcePath = Environment.getExternalStorageDirectory();
         File path = new File(sourcePath + "/" + "savehere" + "/");
         path.mkdir();
+
+
+        s3="Awesome";
+        s4="Brilliant";
 
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]
