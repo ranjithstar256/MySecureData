@@ -60,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imageView=findViewById(R.id.imageView);
         editText=findViewById(R.id.editTextTextPersonName);
-        myDir= new File(Environment.getExternalStorageDirectory().toString()+"/savehere");
+        File sourcePath = Environment.getExternalStorageDirectory();
+        File path = new File(sourcePath + "/" + "savehere" + "/");
+        path.mkdir();
+
+
+
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]
                 {Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -68,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 1);
     }
     public void encrypt(View view) {
-         drawable = ContextCompat.getDrawable(MainActivity.this,R.drawable.tom_cruise);
+        myDir= new File(Environment.getExternalStorageDirectory().toString()+"/savehere");
+
+        drawable = ContextCompat.getDrawable(MainActivity.this,R.drawable.tom_cruise);
          bitmapDrawable= (BitmapDrawable) drawable;
          bitmap = bitmapDrawable.getBitmap();
         stream = new ByteArrayOutputStream();
@@ -90,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void decrypt(View view) {
+        myDir= new File(Environment.getExternalStorageDirectory().toString()+"/savehere");
 
         File outputFileDec = new File(myDir,FILE_NAME_DEC);
         File encFile = new File(myDir,FILE_NAME_ENC);
