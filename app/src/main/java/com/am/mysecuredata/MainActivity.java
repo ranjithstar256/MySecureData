@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         String d = editText.getText().toString();
 
 
-        encrypted = MyEncrypter.encrypt(d);
+        encrypted = MyEncrypter.encrypt(d,MainActivity.this);
         Toast.makeText(this, ""+encrypted, Toast.LENGTH_SHORT).show();
 
     }

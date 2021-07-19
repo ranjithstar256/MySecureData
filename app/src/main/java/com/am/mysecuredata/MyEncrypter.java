@@ -1,6 +1,8 @@
 package com.am.mysecuredata;
 
+import android.content.Context;
 import android.util.Base64;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,15 +86,21 @@ public class MyEncrypter {
     private static final String IV = "abcdefgh";
     private static final String KEY= "MyKey";
 
-    public static  String encrypt(String value ) throws
+    public static  String encrypt(String value , Context c) throws
             NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
 
         SecretKeySpec secretKeySpec = new SecretKeySpec(KEY.getBytes(), ALGORITHM);
+
         Cipher cipher = Cipher.getInstance(MODE);
+
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(IV.getBytes()));
+        //cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(IV.getBytes()));
+
         byte[] values = cipher.doFinal(value.getBytes());
+        Toast.makeText(c, "Awesome ", Toast.LENGTH_SHORT).show();
+
         return Base64.encodeToString(values, Base64.DEFAULT);
     }
 
