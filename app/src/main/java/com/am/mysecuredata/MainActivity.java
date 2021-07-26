@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     BitmapDrawable bitmapDrawable;
     Bitmap bitmap;
     String s3,s4;
+    String s5,s6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         s3="Awesome";
         s4="Brilliant";
+        s5="Good";
+        s6="Fantastic";
 
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[]
